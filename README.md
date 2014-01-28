@@ -113,7 +113,7 @@ want to disable the link and color buttons:
 ```erb
 <%= f.bootsy_area :my_attribute, editor_options: {link: false, color: false} %>
 ```
-Available options are: `:font_styles`, `:emphasis`, `:lists`, `:html`, `:link`, `:image` and `:color`.
+Available options are: `:font_styles`, `:emphasis`, `:lists`, `:html`, `:link`, `:image`, `:color` and `:alignment`.
 
 
 ### Alert for usaved changes

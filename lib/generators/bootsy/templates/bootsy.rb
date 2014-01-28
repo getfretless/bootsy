@@ -9,7 +9,8 @@ Bootsy.setup do |config|
   #   html: false,
   #   link: true,
   #   image: true,
-  #   color: true
+  #   color: true,
+  #   alignment: true
   # }
 
   # Image versions available

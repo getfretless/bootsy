@@ -20,6 +20,7 @@ Bootsy.Area = function($el) {
   if ($el.data('bootsy-html') === true) this.options.html = true;
   if ($el.data('bootsy-link') === false) this.options.link = false;
   if ($el.data('bootsy-color') === false) this.options.color = false;
+  if ($el.data('bootsy-alignment') === false) this.options.alignment = false;
 
   // Delegate find to the modal
   this.find = this.modal.find.bind(this.modal);

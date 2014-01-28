@@ -28,6 +28,17 @@
             "</li>";
         },
 
+        "alignment": function(locale, options) {
+            var size = (options && options.size) ? ' btn-'+options.size : '';
+            return "<li>" +
+              "<div class='btn-group'>" +
+                "<a class='btn btn-default " + size + "' data-wysihtml5-command='justifyLeft' tabindex='-1' title='" + locale.alignment.left + "'><i class='glyphicon glyphicon-align-left'></i></a>" +
+                "<a class='btn btn-default " + size + "' data-wysihtml5-command='justifyCenter' tabindex='-1' title='" + locale.alignment.center + "'><i class='glyphicon glyphicon-align-center'></i></a>" +
+                "<a class='btn btn-default " + size + "' data-wysihtml5-command='justifyRight' tabindex='-1' title='" + locale.alignment.right + "'><i class='glyphicon glyphicon-align-right'></i></a>" +
+              "</div>" +
+            "</li>";
+        },
+
         "lists": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
@@ -413,6 +424,7 @@
         "html": false,
         "link": true,
         "image": true,
+        "alignment": true,
         customCommand: false,
         events: {},
         parserRules: {
@@ -492,6 +504,11 @@
                 bold: "Bold",
                 italic: "Italic",
                 underline: "Underline"
+            },
+            alignment: {
+                left: "Left",
+                center: "Center",
+                right: "Right"
             },
             lists: {
                 unordered: "Unordered list",
