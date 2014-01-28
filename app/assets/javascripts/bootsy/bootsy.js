@@ -1,5 +1,3 @@
-/* global Bootsy */
-
 window.Bootsy = window.Bootsy || {};
 
 Bootsy.Area = function($el) {
@@ -7,6 +5,7 @@ Bootsy.Area = function($el) {
   this.modal          = $el.siblings('.bootsy-modal');
   this.locale         = $el.data('bootsy-locale') || $('html').attr('lang') || 'en';
   this.unsavedChanges = false;
+  this.initialized    = false;
 
   this.options = {
     locale: this.locale,
@@ -15,30 +14,13 @@ Bootsy.Area = function($el) {
     uploader: $el.data('bootsy-uploader'),
   };
 
-  // Set default values to editor options
-  if ($el.data('bootsy-font-styles') === false) {
-    this.options['font-styles'] = false;
-  }
-
-  if ($el.data('bootsy-emphasis') === false) {
-    this.options.emphasis = false;
-  }
-
-  if ($el.data('bootsy-lists') === false) {
-    this.options.lists = false;
-  }
-
-  if ($el.data('bootsy-html') === true) {
-    this.options.html = true;
-  }
-
-  if ($el.data('bootsy-link') === false) {
-    this.options.link = false;
-  }
-
-  if ($el.data('bootsy-color') === false) {
-    this.options.color = false;
-  }
+  if ($el.data('bootsy-font-styles') === false) this.options['font-styles'] = false;
+  if ($el.data('bootsy-emphasis') === false) this.options.emphasis = false;
+  if ($el.data('bootsy-lists') === false) this.options.lists = false;
+  if ($el.data('bootsy-html') === true) this.options.html = true;
+  if ($el.data('bootsy-link') === false) this.options.link = false;
+  if ($el.data('bootsy-color') === false) this.options.color = false;
+  if ($el.data('bootsy-alignment') === false) this.options.alignment = false;
 
   // Delegate find to the modal
   this.find = this.modal.find.bind(this.modal);
@@ -85,6 +67,8 @@ Bootsy.Area.prototype.hideRefreshButton = function() {
 
 // Set upload form
 Bootsy.Area.prototype.setUploadForm = function(html) {
+  var form;
+
   this.find('.modal-footer').html(html);
 
   this.hideUploadLoadingAnimation();
@@ -120,7 +104,7 @@ Bootsy.Area.prototype.setImageGallery = function() {
         this.addImage(value);
       }.bind(this));
 
-      if (data.images.length === 0) {
+      if (data.images.length == 0) {
         this.showEmptyAlert();
       }
 
@@ -128,7 +112,7 @@ Bootsy.Area.prototype.setImageGallery = function() {
 
       this.modal.data('gallery-loaded', true);
     }.bind(this),
-    error: function() {
+    error: function(e) {
       alert(Bootsy.translations[this.locale].error);
 
       this.showRefreshButton();
@@ -146,7 +130,7 @@ Bootsy.Area.prototype.deleteImage = function (id) {
     image.remove();
 
     // Put message back if 0 images
-    if (this.find('.bootsy-image').length === 0 ) {
+    if (this.find('.bootsy-image').length == 0 ) {
       this.showEmptyAlert();
     }
   }.bind(this));
@@ -209,7 +193,7 @@ Bootsy.Area.prototype.setImageGalleryId = function(id) {
 Bootsy.Area.prototype.init = function() {
   var insert;
 
-  if (!this.$el.data('bootsy-initialized')) {
+  if (!this.initialized) {
     insert = this.insertImage.bind(this);
 
     if ((this.options.image === true) && (this.options.uploader === true)) {
@@ -276,7 +260,7 @@ Bootsy.Area.prototype.init = function() {
       window.onbeforeunload = this.unsavedChangesAlert.bind(this);
     }
 
-    this.$el.closest('form').submit(function() {
+    this.$el.closest('form').submit(function(e) {
       this.unsavedChanges = false;
 
       return true;
@@ -299,6 +283,6 @@ Bootsy.Area.prototype.init = function() {
     this.hideRefreshButton();
     this.hideEmptyAlert();
 
-    this.$el.data('bootsy-initialized', true);
+    this.initialized = true;
   }
 };
