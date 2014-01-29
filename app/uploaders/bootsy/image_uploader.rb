@@ -1,7 +1,7 @@
 # encoding: utf-8
 module Bootsy
   class ImageUploader < CarrierWave::Uploader::Base
-    include CarrierWave::MiniMagick
+    include CarrierWave::RMagick
 
     storage Bootsy.storage
 
