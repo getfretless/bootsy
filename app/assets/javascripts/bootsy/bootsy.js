@@ -1,3 +1,5 @@
+/* global Bootsy */
+
 window.Bootsy = window.Bootsy || {};
 
 Bootsy.Area = function($el) {
@@ -67,8 +69,6 @@ Bootsy.Area.prototype.hideRefreshButton = function() {
 
 // Set upload form
 Bootsy.Area.prototype.setUploadForm = function(html) {
-  var form;
-
   this.find('.modal-footer').html(html);
 
   this.hideUploadLoadingAnimation();
@@ -104,7 +104,7 @@ Bootsy.Area.prototype.setImageGallery = function() {
         this.addImage(value);
       }.bind(this));
 
-      if (data.images.length == 0) {
+      if (data.images.length === 0) {
         this.showEmptyAlert();
       }
 
@@ -112,7 +112,7 @@ Bootsy.Area.prototype.setImageGallery = function() {
 
       this.modal.data('gallery-loaded', true);
     }.bind(this),
-    error: function(e) {
+    error: function() {
       alert(Bootsy.translations[this.locale].error);
 
       this.showRefreshButton();
@@ -130,7 +130,7 @@ Bootsy.Area.prototype.deleteImage = function (id) {
     image.remove();
 
     // Put message back if 0 images
-    if (this.find('.bootsy-image').length == 0 ) {
+    if (this.find('.bootsy-image').length === 0 ) {
       this.showEmptyAlert();
     }
   }.bind(this));
@@ -260,7 +260,7 @@ Bootsy.Area.prototype.init = function() {
       window.onbeforeunload = this.unsavedChangesAlert.bind(this);
     }
 
-    this.$el.closest('form').submit(function(e) {
+    this.$el.closest('form').submit(function() {
       this.unsavedChanges = false;
 
       return true;
