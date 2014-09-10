@@ -71,7 +71,7 @@
                   "</div>" +
                 "</div>" +
               "</div>" +
-              "<a class='btn btn-default " + size + "' data-wysihtml5-command='createLink' title='" + locale.link.insert + "' tabindex='-1'><i class='glyphicon glyphicon-share'></i></a>" +
+              "<a class='btn btn-default " + size + "' data-wysihtml5-command='createLink' title='" + locale.link.insert + "' tabindex='-1'><i class='fa fa-link'></i></a>" +
             "</li>";
         },
 
