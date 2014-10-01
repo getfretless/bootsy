@@ -19,6 +19,7 @@ Bootsy.init = function() {
       }
 
       area.init();
+      $(this).data('bootsy-initialized', true);
 
       Bootsy.areas[areaIdx] = area;
     }
