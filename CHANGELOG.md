@@ -2,7 +2,15 @@
 
 ## master
 
+## 2.0.11
+
+* Fix orange color (#94).
+* Fix locale generator (#95).
+
+## 2.0.10
+
 * Fix event handling for Turbolinks on Internet Explorer (#43).
+* Fix helper inclusion when `ApplicationController` is eager loaded (#85).
 
 ## 2.0.9
 
