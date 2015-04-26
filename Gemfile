@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
 # Gems used by the dummy application
-gem 'rails', '~> 4.1.6'
+gem 'rails', '4.2.0'
 gem 'jquery-rails'
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'
-gem 'sqlite3', '~> 1.3'
-gem 'simple_form', '~> 3.1.0.rc2'
+gem 'sqlite3'
+gem 'simple_form'
 
 gemspec
 
@@ -19,3 +19,5 @@ gem 'cucumber-rails', require: false
 gem 'shoulda-matchers'
 gem 'selenium-webdriver'
 gem 'pry-rails'
+gem 'rubocop'
+gem 'sham_rack', require: false

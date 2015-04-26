@@ -12,10 +12,19 @@ Coveralls.wear_merged!
 ENV["RAILS_ROOT"] = File.expand_path(File.dirname(__FILE__) + '/../../spec/dummy/')
 require File.expand_path(File.dirname(__FILE__) + '/../../spec/dummy/config/environment')
 
+require 'active_record'
+ActiveRecord::Migrator.migrations_paths = ['spec/dummy/db/migrate']
 require 'cucumber/rails'
 
 # If you use factory girl, I had to add the following...
 require 'factory_girl_rails'
+
+# ShamRack is used to mock a remote webserver. It will serve all files in the dummy's
+# public folder. Send requests to stubhost.com/:your_filename.
+require 'sham_rack'
+ShamRack.at('stubhost.com').rackup do
+  run Rack::Directory.new(Rails.root.join('public').to_s)
+end
 
 #Dir[File.expand_path(File.dirname(__FILE__) + "/../../spec/factories/*.rb")].each do |f|
 #  require f
@@ -76,4 +85,3 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
-

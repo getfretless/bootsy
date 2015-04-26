@@ -1,6 +1,19 @@
 # Bootsy Changelog
 
-## master
+## 2.1.0
+
+* Rescue failed gallery upload (#111 - thanks @rzane).
+* Allow uploading images from a url (#112 - thanks @rzane).
+* Add a polyfill for Function.prototype.bind (#113 - thanks @rzane).
+* Default locale to `en` if translations are missing (#24).
+
+## 2.0.13
+
+* Fix install generator (#110).
+
+## 2.0.12
+
+* Allow youtube embed codes (#71 - thanks @markusherzog).
 
 ## 2.0.11
 

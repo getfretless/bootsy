@@ -2,8 +2,9 @@ require_dependency 'bootsy/application_controller'
 
 module Bootsy
   class ImagesController < Bootsy::ApplicationController
+    before_action :set_gallery, only: [:index, :create]
+
     def index
-      @gallery = find_gallery
       @images = @gallery.images
 
       respond_to do |format|
@@ -11,7 +12,7 @@ module Bootsy
 
         format.json do
           render json: {
-            images: @images.map {|image| image_markup(image) },
+            images: @images.map { |image| image_markup(image) },
             form: new_image_markup(@gallery)
           }
         end
@@ -19,26 +20,10 @@ module Bootsy
     end
 
     def create
-      @gallery = find_gallery
-      @gallery.save! unless @gallery.persisted?
+      @gallery.save!
       @image = @gallery.images.new(image_params)
 
-      respond_to do |format|
-        if @image.save
-          format.json {
-            render json: {
-              image: image_markup(@image),
-              form: new_image_markup(@gallery),
-              gallery_id: @gallery.id
-            }
-          }
-        else
-          format.json {
-            render json: @image.errors,
-            status: :unprocessable_entity
-          }
-        end
-      end
+      create_and_respond
     end
 
     def destroy
@@ -46,9 +31,9 @@ module Bootsy
       @image.destroy
 
       respond_to do |format|
-        format.json {
+        format.json do
           render json: { id: params[:id] }
-        }
+        end
 
         format.html { redirect_to images_url }
       end
@@ -56,8 +41,8 @@ module Bootsy
 
     private
 
-    def find_gallery
-      ImageGallery.find(params[:image_gallery_id])
+    def set_gallery
+      @gallery = ImageGallery.find(params[:image_gallery_id])
     end
 
     # Private: Returns the String markup to render
@@ -86,9 +71,26 @@ module Bootsy
       )
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:image_file)
+      params.require(:image).permit(:image_file, :remote_image_file_url)
+    end
+
+    def create_and_respond
+      respond_to do |format|
+        if @image.save
+          format.json do
+            render json: {
+              image: image_markup(@image),
+              form: new_image_markup(@gallery),
+              gallery_id: @gallery.id
+            }
+          end
+        else
+          format.json do
+            render json: @image.errors, status: :unprocessable_entity
+          end
+        end
+      end
     end
   end
 end

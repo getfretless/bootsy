@@ -25,14 +25,16 @@ Bundler::GemHelper.install_tasks
 require 'cucumber/rake/task'
 require 'rspec/core/rake_task'
 require 'coveralls/rake/task'
+require 'rubocop/rake_task'
 
+RuboCop::RakeTask.new(:rubocop) do |task|
+  task.patterns = ['app/**/*.rb', 'lib/**/*.rb']
+end
 Coveralls::RakeTask.new
-
-task default: [:spec, :cucumber, 'coveralls:push']
-
 RSpec::Core::RakeTask.new(:spec)
-
-Cucumber::Rake::Task.new do |t|
+Cucumber::Rake::Task.new do |_|
   # Uncomment this line when cucumber/multi_test work with minitest.
   # t.cucumber_opts = %w{--format pretty -s}
 end
+
+task default: [:rubocop, :spec, :cucumber, 'coveralls:push']
