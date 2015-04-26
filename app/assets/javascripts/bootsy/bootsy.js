@@ -106,7 +106,7 @@ Bootsy.Area.prototype.setUploadForm = function(html) {
 // The image upload failed
 Bootsy.Area.prototype.imageUploadFailed = function(e, xhr, status, error) {
   this.invalidErrors = xhr.responseJSON;
-  this.hideGalleryLoadingAnimation();
+  this.hideUploadLoadingAnimation();
   if (Number(xhr.status) === 422 && this.invalidErrors.image_file) {
     if (this.validation) this.validation.remove();
     this.validation = $("<p class='text-danger'>");
@@ -115,7 +115,7 @@ Bootsy.Area.prototype.imageUploadFailed = function(e, xhr, status, error) {
     this.showRefreshButton();
   }
   else {
-    this.setImageGallery.bind(this);
+    this.find('.refresh-btn').click();
   }
 };
 
